@@ -255,6 +255,7 @@ This project is developed for educational purposes, hackathons, and technology d
 
 **Let's build smarter, cleaner, and more connected cities with CivicFix. 🚀**
 
-</div>
----
 *Maintained & Refined by **Sakshi Rakhade** | Open for collaborations.*
+</div>
+
+
