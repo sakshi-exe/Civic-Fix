@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CivicFix | Raise an Issue</title>
+    <meta name="description" content="Submit civic infrastructure reports with AI insights and streamlined municipal handoff.">
+    <link rel="icon" href="favicon.ico">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css">
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <header>
+        <nav class="navbar container">
+            <a href="index.html" class="logo">Civic<span>Fix</span></a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="dashboard.html">Dashboard</a></li>
+                <li><a href="report.html" class="active-link">Report</a></li>
+            </ul>
+            <div class="nav-buttons">
+                <a href="dashboard.html" class="btn-secondary">Dashboard</a>
+                <a href="index.html" class="btn-primary">Back to Home</a>
+            </div>
+            <div class="menu-btn"><i class="fa-solid fa-bars"></i></div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="report-hero">
+            <div class="container report-grid">
+                <div class="report-copy" data-aos="fade-right">
+                    <span class="tag">AI Guided Civic Reporting</span>
+                    <h1>Submit a cleaner, faster civic issue report with confidence.</h1>
+                    <p>Use CivicFix to provide clear issue details, upload supporting media, and let intelligent review workflows connect your report with the right local authority.</p>
+                    <div class="report-hero-stats">
+                        <div>
+                            <strong>98%</strong>
+                            <span>AI accuracy</span>
+                        </div>
+                        <div>
+                            <strong>Rapid</strong>
+                            <span>Municipal handoff</span>
+                        </div>
+                        <div>
+                            <strong>Mobile</strong>
+                            <span>Ready experience</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="report-frame" data-aos="fade-left">
+                    <div class="glass-panel report-panel">
+                        <div class="stepper-bar">
+                            <span class="step active">1</span>
+                            <span class="step">2</span>
+                            <span class="step">3</span>
+                        </div>
+                        <div class="report-stage" id="stage-1">
+                            <p class="stage-label">Step 1 of 3</p>
+                            <h2>Issue Summary</h2>
+                            <div class="form-grid">
+                                <label>
+                                    <span>Issue Title</span>
+                                    <input type="text" id="issue-title" placeholder="Pothole near bus stop" />
+                                </label>
+                                <label>
+                                    <span>Category</span>
+                                    <select id="issue-category">
+                                        <option value="road">Road & Potholes</option>
+                                        <option value="sanitation">Sanitation</option>
+                                        <option value="water">Water Supply</option>
+                                        <option value="streetlight">Streetlight</option>
+                                        <option value="traffic">Traffic & Signals</option>
+                                    </select>
+                                </label>
+                            </div>
+                            <label class="full-width">
+                                <span>Description</span>
+                                <textarea id="issue-description" rows="5" placeholder="Provide a brief description of the issue, location details and potential impact."></textarea>
+                            </label>
+                        </div>
+                        <div class="report-stage hidden" id="stage-2">
+                            <p class="stage-label">Step 2 of 3</p>
+                            <h2>Location & Priority</h2>
+                            <div class="form-grid">
+                                <label>
+                                    <span>Nearest Landmark</span>
+                                    <input type="text" id="location-landmark" placeholder="Near central park entrance" />
+                                </label>
+                                <label>
+                                    <span>Priority</span>
+                                    <select id="issue-priority">
+                                        <option value="high">High</option>
+                                        <option value="medium" selected>Medium</option>
+                                        <option value="low">Low</option>
+                                    </select>
+                                </label>
+                            </div>
+                            <label class="full-width">
+                                <span>Exact Location</span>
+                                <input type="text" id="issue-location" placeholder="Example: Sector 12, MG Road, Pune" />
+                            </label>
+                            <div class="location-note">
+                                <i class="fa-solid fa-location-dot"></i>
+                                <span>Location data helps route your report to the nearest civic authority.</span>
+                            </div>
+                        </div>
+                        <div class="report-stage hidden" id="stage-3">
+                            <p class="stage-label">Step 3 of 3</p>
+                            <h2>Visual Evidence</h2>
+                            <div class="media-upload">
+                                <label class="upload-card">
+                                    <i class="fa-solid fa-camera"></i>
+                                    <span>Upload image or video</span>
+                                    <input type="file" id="issue-media" accept="image/*,video/*" />
+                                </label>
+                                <div class="upload-help">
+                                    <p>Accepted formats: JPG, PNG, MP4. Max 10MB.</p>
+                                </div>
+                            </div>
+                            <div class="ai-preview">
+                                <h3>AI Issue Preview</h3>
+                                <p id="preview-text">CivicFix will analyze your report and generate a clean summary ready for municipal review.</p>
+                            </div>
+                        </div>
+                        <div class="report-actions">
+                            <button class="btn-secondary" id="back-button" disabled>Back</button>
+                            <button class="btn-primary" id="next-button">Continue</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="report-features">
+            <div class="container">
+                <div class="section-title" data-aos="fade-up">
+                    <h2>Designed for Smart Urban Reporting</h2>
+                    <p>Every detail is built to feel premium, clear, and citizen-first.</p>
+                </div>
+                <div class="feature-grid">
+                    <article class="feature-card" data-aos="fade-up">
+                        <i class="fa-solid fa-brain"></i>
+                        <h3>AI Summary</h3>
+                        <p>Instantly enrich report text with an AI-generated summary for faster review.</p>
+                    </article>
+                    <article class="feature-card" data-aos="fade-up">
+                        <i class="fa-solid fa-road-barrier"></i>
+                        <h3>Clear Category</h3>
+                        <p>Structured issue types help municipalities assign the right team immediately.</p>
+                    </article>
+                    <article class="feature-card" data-aos="fade-up">
+                        <i class="fa-solid fa-bolt"></i>
+                        <h3>Priority Routing</h3>
+                        <p>Choose urgency and let CivicFix flag critical issues for faster handling.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container footer-content">
+            <div>
+                <h3>CivicFix</h3>
+                <p>AI-powered civic issue reporting trusted by modern cities.</p>
+            </div>
+            <div class="footer-links">
+                <a href="#">Privacy</a>
+                <a href="#">Terms</a>
+                <a href="#">Contact</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+    <script src="js/report.js"></script>
+</body>
+
+</html>

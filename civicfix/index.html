@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>CivicFix | AI Powered Civic Issue Reporting</title>
+
+    <meta name="description"
+          content="Report civic issues smarter with AI powered complaint management platform.">
+
+    <link rel="icon"
+          href="favicon.ico">
+
+    <!-- Fonts -->
+
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@500;600;700;800&display=swap"
+          rel="stylesheet">
+
+    <!-- Font Awesome -->
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <!-- AOS -->
+
+    <link href="https://unpkg.com/aos@2.3.4/dist/aos.css"
+          rel="stylesheet">
+
+    <!-- CSS -->
+
+    <link rel="stylesheet"
+          href="css/variables.css">
+
+    <link rel="stylesheet"
+          href="css/style.css">
+
+    <link rel="stylesheet"
+          href="css/animations.css">
+
+</head>
+
+<body>
+
+    <!-- ================= LOADER ================= -->
+
+    <div id="loader">
+
+        <div class="loader-content">
+
+            <div class="loader-logo">
+                CivicFix
+            </div>
+
+            <div class="loader-bar">
+                <span></span>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- ================= BACKGROUND ================= -->
+
+    <div class="background-blobs">
+
+        <span class="blob blob1"></span>
+        <span class="blob blob2"></span>
+        <span class="blob blob3"></span>
+
+    </div>
+
+    <!-- ================= NAVBAR ================= -->
+
+    <header>
+
+        <nav class="navbar container">
+
+            <a href="#"
+               class="logo">
+
+                Civic<span>Fix</span>
+
+            </a>
+
+            <ul class="nav-links">
+
+                <li><a href="#hero">Home</a></li>
+
+                <li><a href="#about">About</a></li>
+
+                <li><a href="#features">Features</a></li>
+
+                <li><a href="#workflow">Workflow</a></li>
+
+                <li><a href="#contact">Contact</a></li>
+
+            </ul>
+
+            <div class="nav-buttons">
+
+                <a href="citizen-login.html"
+                   class="btn-secondary">
+
+                    Citizen Login
+
+                </a>
+
+                <a href="admin-login.html"
+                   class="btn-secondary">
+
+                    Admin Login
+
+                </a>
+
+                <a href="report.html"
+                   class="btn-primary">
+
+                    Raise Complaint
+
+                </a>
+
+            </div>
+
+            <div class="menu-btn">
+
+                <i class="fa-solid fa-bars"></i>
+
+            </div>
+
+        </nav>
+
+    </header>
+
+    <!-- ================= HERO ================= -->
+
+    <section id="hero"
+             class="hero">
+
+        <div class="container hero-grid">
+
+            <!-- LEFT -->
+
+            <div class="hero-content"
+                 data-aos="fade-right">
+
+                <span class="tag">
+
+                    AI Powered Civic Platform
+
+                </span>
+
+                <h1>
+
+                    Transforming Civic Complaints into
+
+                    <span>Smart Solutions.</span>
+
+                </h1>
+
+                <p>
+
+                    Report infrastructure issues in seconds with an intelligent platform designed to help citizens and authorities build cleaner, safer and smarter cities.
+
+                </p>
+
+                <div class="hero-buttons">
+
+                    <a href="report.html"
+                       class="btn-primary">
+
+                        Raise Complaint
+
+                    </a>
+
+                    <a href="dashboard.html"
+                       class="btn-outline">
+
+                        View Dashboard
+
+                    </a>
+
+                </div>
+
+            </div>
+
+            <!-- RIGHT -->
+
+            <div class="hero-image"
+                 data-aos="fade-left">
+
+                <img src="assets/illustrations/city.svg"
+                     alt="City Illustration">
+
+                <!-- Floating Cards -->
+
+                <div class="glass-card card1">
+
+                    <i class="fa-solid fa-location-dot"></i>
+
+                    Live Tracking
+
+                </div>
+
+                <div class="glass-card card2">
+
+                    <i class="fa-solid fa-robot"></i>
+
+                    AI Assisted
+
+                </div>
+
+                <div class="glass-card card3">
+
+                    <i class="fa-solid fa-chart-line"></i>
+
+                    Analytics
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- ================= STATS ================= -->
+
+    <section class="stats">
+
+        <div class="container stats-grid">
+
+            <div class="stat-card"
+                 data-aos="zoom-in">
+
+                <h2 class="counter"
+                    data-target="10000">
+
+                    0
+
+                </h2>
+
+                <p>Complaints</p>
+
+            </div>
+
+            <div class="stat-card"
+                 data-aos="zoom-in">
+
+                <h2 class="counter"
+                    data-target="250">
+
+                    0
+
+                </h2>
+
+                <p>Cities</p>
+
+            </div>
+
+            <div class="stat-card"
+                 data-aos="zoom-in">
+
+                <h2 class="counter"
+                    data-target="92">
+
+                    0
+
+                </h2>
+
+                <p>Resolved %</p>
+
+            </div>
+
+            <div class="stat-card"
+                 data-aos="zoom-in">
+
+                <h2 class="counter"
+                    data-target="24">
+
+                    0
+
+                </h2>
+
+                <p>Support</p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- ================= ABOUT ================= -->
+
+    <section id="about"
+             class="about">
+
+        <div class="container section-grid">
+
+            <div data-aos="fade-right">
+
+                <h2>Building Better Cities Together</h2>
+
+            </div>
+
+            <div data-aos="fade-left">
+
+                <p>
+
+                    CivicFix empowers citizens to report civic infrastructure issues effortlessly while enabling authorities with actionable insights through AI-powered workflows, real-time analytics and transparent complaint tracking.
+
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- ================= FEATURES ================= -->
+
+    <section id="features"
+             class="features">
+
+        <div class="container">
+
+            <div class="section-title"
+                 data-aos="fade-up">
+
+                <h2>Everything You Need</h2>
+
+                <p>
+
+                    Built for modern cities.
+
+                </p>
+
+            </div>
+
+            <div class="features-grid">
+
+                <article class="feature-card"
+                         data-aos="fade-up">
+
+                    <i class="fa-solid fa-robot"></i>
+
+                    <h3>AI Assisted Reporting</h3>
+
+                </article>
+
+                <article class="feature-card"
+                         data-aos="fade-up">
+
+                    <i class="fa-solid fa-location-dot"></i>
+
+                    <h3>Geo Location</h3>
+
+                </article>
+
+                <article class="feature-card"
+                         data-aos="fade-up">
+
+                    <i class="fa-solid fa-clock"></i>
+
+                    <h3>Live Tracking</h3>
+
+                </article>
+
+                <article class="feature-card"
+                         data-aos="fade-up">
+
+                    <i class="fa-solid fa-chart-column"></i>
+
+                    <h3>Analytics Dashboard</h3>
+
+                </article>
+
+                <article class="feature-card"
+                         data-aos="fade-up">
+
+                    <i class="fa-solid fa-layer-group"></i>
+
+                    <h3>Complaint History</h3>
+
+                </article>
+
+                <article class="feature-card"
+                         data-aos="fade-up">
+
+                    <i class="fa-solid fa-shield"></i>
+
+                    <h3>Secure Platform</h3>
+
+                </article>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- ================= WORKFLOW ================= -->
+
+    <section id="workflow"
+             class="workflow">
+
+        <div class="container">
+
+            <div class="section-title">
+
+                <h2>How It Works</h2>
+
+            </div>
+
+            <div class="timeline">
+
+                <div class="step">Report</div>
+
+                <div class="step">Verify</div>
+
+                <div class="step">Assign</div>
+
+                <div class="step">Resolve</div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- ================= SDG ================= -->
+
+    <section class="sdg">
+
+        <div class="container">
+
+            <div class="sdg-card"
+                 data-aos="zoom-in">
+
+                <h2>Supporting Sustainable Development Goal 9</h2>
+
+                <p>
+
+                    CivicFix promotes resilient infrastructure, technological innovation and sustainable urban development by making civic issue reporting transparent and data-driven.
+
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- ================= TESTIMONIALS ================= -->
+
+    <section class="testimonials">
+
+        <div class="container">
+
+            <div class="section-title">
+
+                <h2>Trusted by Communities</h2>
+
+            </div>
+
+            <div class="testimonial-grid">
+
+                <div class="testimonial-card">
+
+                    <p>
+
+                        "A clean interface with powerful reporting capabilities. This is exactly what smart cities need."
+
+                    </p>
+
+                    <h4>City Volunteer</h4>
+
+                </div>
+
+                <div class="testimonial-card">
+
+                    <p>
+
+                        "Reporting civic issues has never been easier."
+
+                    </p>
+
+                    <h4>Resident</h4>
+
+                </div>
+
+                <div class="testimonial-card">
+
+                    <p>
+
+                        "Real-time analytics make issue management much more efficient."
+
+                    </p>
+
+                    <h4>Municipal Officer</h4>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- ================= CTA ================= -->
+
+    <section class="cta">
+
+        <div class="container">
+
+            <div class="cta-card">
+
+                <h2>
+
+                    Ready to Make Your City Better?
+
+                </h2>
+
+                <p>
+
+                    Join thousands of citizens already reporting issues and improving public infrastructure.
+
+                </p>
+
+                <a href="report.html"
+                   class="btn-primary">
+
+                    Report Now
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer id="contact">
+
+        <div class="container footer-content">
+
+            <div>
+
+                <h3>CivicFix</h3>
+
+                <p>
+
+                    AI Powered Civic Issue Reporting Platform.
+
+                </p>
+
+            </div>
+
+            <div class="footer-links">
+
+                <a href="#">Privacy</a>
+
+                <a href="#">Terms</a>
+
+                <a href="#">GitHub</a>
+
+            </div>
+
+        </div>
+
+    </footer>
+
+    <!-- JS -->
+
+    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+
+    <script src="js/app.js"></script>
+
+</body>
+
+</html>

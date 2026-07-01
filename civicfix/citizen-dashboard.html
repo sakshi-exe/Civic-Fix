@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CivicFix | Citizen Dashboard</title>
+    <meta name="description" content="Citizen dashboard for tracking reported issues, progress updates, and notifications.">
+    <link rel="icon" href="favicon.ico">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css">
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body data-page="citizen-dashboard">
+
+    <header>
+        <nav class="navbar container">
+            <a href="index.html" class="logo">Civic<span>Fix</span></a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="citizen-dashboard.html" class="active-link">Citizen Dashboard</a></li>
+                <li><a href="report.html">Raise Report</a></li>
+            </ul>
+            <div class="nav-buttons">
+                <a href="report.html" class="btn-secondary">New Complaint</a>
+                <a href="citizen-login.html" class="btn-primary">Sign Out</a>
+            </div>
+            <div class="menu-btn"><i class="fa-solid fa-bars"></i></div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="container dashboard-shell">
+            <aside class="dashboard-sidebar" data-aos="fade-right">
+                <div class="sidebar-brand">
+                    <h2>Citizen Profile</h2>
+                    <p>Track reports, see live progress, and get notified in real time.</p>
+                </div>
+                <nav class="sidebar-nav">
+                    <a href="#progress" class="active"><i class="fa-solid fa-clock"></i> My Reports</a>
+                    <a href="#notifications"><i class="fa-solid fa-bell"></i> Notifications</a>
+                    <a href="#insights"><i class="fa-solid fa-chart-line"></i> City Impact</a>
+                </nav>
+            </aside>
+
+            <section class="dashboard-content">
+                <div class="dashboard-top" data-aos="fade-up">
+                    <div>
+                        <p class="tag">Citizen Dashboard</p>
+                        <h1>Your complaints, progress updates, and civic notifications.</h1>
+                        <p>Stay informed on every issue you file, from initial report through resolution.</p>
+                    </div>
+                    <div class="dashboard-actions">
+                        <a href="report.html" class="btn-secondary">Report Issue</a>
+                        <button class="btn-primary">View Status</button>
+                    </div>
+                </div>
+
+                <div class="kpi-grid" data-aos="fade-up" data-aos-delay="100">
+                    <article class="kpi-card">
+                        <h3>Open Complaints</h3>
+                        <strong id="open-count">0</strong>
+                    </article>
+                    <article class="kpi-card">
+                        <h3>In Progress</h3>
+                        <strong id="progress-count">0</strong>
+                    </article>
+                    <article class="kpi-card">
+                        <h3>Resolved</h3>
+                        <strong id="resolved-count">0</strong>
+                    </article>
+                    <article class="kpi-card">
+                        <h3>Notifications</h3>
+                        <strong id="notification-count">0</strong>
+                    </article>
+                </div>
+
+                <article class="status-card" id="progress" data-aos="fade-up" data-aos-delay="150">
+                    <h3>My Report Progress</h3>
+                    <div id="report-list" class="report-list"></div>
+                </article>
+
+                <article class="insight-card" id="notifications" data-aos="fade-up" data-aos-delay="200">
+                    <h3>Notifications</h3>
+                    <div id="notification-list" class="report-list"></div>
+                </article>
+
+                <article class="map-card" id="insights" data-aos="fade-up" data-aos-delay="250">
+                    <h3>Impact Summary</h3>
+                    <i class="fa-solid fa-leaf"></i>
+                    <p>Your reports help improve city safety, infrastructure reliability, and community trust.</p>
+                </article>
+            </section>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container footer-content">
+            <div>
+                <h3>CivicFix</h3>
+                <p>Your complaint history and city impact in one modern space.</p>
+            </div>
+            <div class="footer-links">
+                <a href="#">Privacy</a>
+                <a href="#">Terms</a>
+                <a href="#">Help</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+    <script src="js/dashboard.js"></script>
+    <script src="js/app.js"></script>
+</body>
+
+</html>

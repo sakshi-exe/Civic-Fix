@@ -1,0 +1,277 @@
+/* ==========================================
+   CivicFix Design System
+   ========================================== */
+
+:root {
+
+    /* ======================================
+       Colors
+       ====================================== */
+
+    --primary: #FF9933;
+    --primary-light: #FFD6A5;
+    --primary-dark: #D97706;
+
+    --secondary: #138808;
+    --accent: #000080;
+
+    --success: #1D6F2B;
+    --warning: #FF9933;
+    --danger: #B91C1C;
+
+    --bg: #FFFDF8;
+    --surface: #FFFFFF;
+
+    --dark: #0F172A;
+    --dark-soft: #1E293B;
+
+    --text: #152026;
+    --text-light: #47535C;
+    --text-muted: #64748B;
+
+    --border: rgba(30,41,59,.16);
+
+    /* ======================================
+       Gradients
+       ====================================== */
+
+    --gradient-primary:
+        linear-gradient(
+            135deg,
+            #FF9933 0%,
+            #FFD6A5 100%
+        );
+
+    --gradient-secondary:
+        linear-gradient(
+            135deg,
+            #138808 0%,
+            #000080 100%
+        );
+
+    --gradient-bg:
+        linear-gradient(
+            180deg,
+            #FFFDF8 0%,
+            #F8FAFC 100%
+        );
+
+    --gradient-card:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,.78),
+            rgba(255,255,255,.55)
+        );
+
+    /* ======================================
+       Glass Effect
+       ====================================== */
+
+    --glass-bg: rgba(255,255,255,.70);
+
+    --glass-border:
+        rgba(255,255,255,.60);
+
+    --glass-shadow:
+        0 10px 40px rgba(15,23,42,.06);
+
+    --blur: blur(18px);
+
+    /* ======================================
+       Typography
+       ====================================== */
+
+    --heading-font:
+        "Poppins",
+        sans-serif;
+
+    --body-font:
+        "Inter",
+        sans-serif;
+
+    --fs-xs: .75rem;
+    --fs-sm: .875rem;
+    --fs-base: 1rem;
+    --fs-lg: 1.125rem;
+    --fs-xl: 1.35rem;
+    --fs-2xl: 2rem;
+    --fs-3xl: 3rem;
+    --fs-4xl: 4rem;
+    --fs-5xl: 5rem;
+
+    --fw-light:300;
+    --fw-normal:400;
+    --fw-medium:500;
+    --fw-semibold:600;
+    --fw-bold:700;
+    --fw-black:800;
+
+    --line-height:1.75;
+
+    /* ======================================
+       Layout
+       ====================================== */
+
+    --container-width:1200px;
+
+    --section-padding:120px;
+
+    --navbar-height:80px;
+
+    /* ======================================
+       Border Radius
+       ====================================== */
+
+    --radius-sm:10px;
+    --radius:14px;
+    --radius-lg:22px;
+    --radius-xl:28px;
+    --radius-full:999px;
+
+    /* ======================================
+       Shadows
+       ====================================== */
+
+    --shadow-sm:
+        0 10px 40px rgba(15,23,42,.06);
+
+    --shadow:
+        0 25px 60px rgba(15,23,42,.08);
+
+    --shadow-lg:
+        0 40px 100px rgba(15,23,42,.12);
+
+    /* ======================================
+       Buttons
+       ====================================== */
+
+    --button-padding:
+        15px 30px;
+
+    --button-radius:
+        14px;
+
+    /* ======================================
+       Animation
+       ====================================== */
+
+    --transition-fast:.22s;
+
+    --transition:
+        .35s ease;
+
+    --transition-slow:
+        .6s ease;
+
+    /* ======================================
+       Floating Blobs
+       ====================================== */
+
+    --blob-saffron:
+        rgba(255,153,51,.22);
+
+    --blob-green:
+        rgba(19,136,8,.16);
+
+    --blob-navy:
+        rgba(0,0,128,.10);
+
+    /* ======================================
+       Z Index
+       ====================================== */
+
+    --z-loader:9999;
+    --z-navbar:999;
+    --z-dropdown:950;
+    --z-modal:990;
+    --z-tooltip:995;
+
+}
+
+/* ==========================================
+   Large Desktop
+   ========================================== */
+
+@media (max-width:1400px){
+
+    :root{
+
+        --container-width:1140px;
+
+    }
+
+}
+
+/* ==========================================
+   Laptop
+   ========================================== */
+
+@media (max-width:1200px){
+
+    :root{
+
+        --container-width:960px;
+
+        --section-padding:100px;
+
+    }
+
+}
+
+/* ==========================================
+   Tablet
+   ========================================== */
+
+@media (max-width:992px){
+
+    :root{
+
+        --container-width:90%;
+
+        --fs-5xl:4rem;
+        --fs-4xl:3.5rem;
+        --fs-3xl:2.5rem;
+
+        --section-padding:90px;
+
+    }
+
+}
+
+/* ==========================================
+   Mobile
+   ========================================== */
+
+@media (max-width:768px){
+
+    :root{
+
+        --navbar-height:72px;
+
+        --fs-5xl:3rem;
+        --fs-4xl:2.5rem;
+        --fs-3xl:2rem;
+        --fs-2xl:1.8rem;
+
+        --section-padding:80px;
+
+    }
+
+}
+
+/* ==========================================
+   Small Mobile
+   ========================================== */
+
+@media (max-width:480px){
+
+    :root{
+
+        --section-padding:70px;
+
+        --fs-4xl:2rem;
+        --fs-3xl:1.75rem;
+
+    }
+
+}
