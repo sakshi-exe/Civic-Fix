@@ -257,4 +257,4 @@ This project is developed for educational purposes, hackathons, and technology d
 
 </div>
 ---
-*Maintained & Refined by **Piyush Sarve** | Open for collaborations.*
+*Maintained & Refined by **Sakshi Rakhade** | Open for collaborations.*
