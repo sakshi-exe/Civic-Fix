@@ -2,7 +2,7 @@
 
 <div align="center">
 
-### 🏙️ Building Smarter Cities Through AI
+###  Building Smarter Cities Through AI
 
 **An intelligent civic issue reporting platform empowering citizens to report infrastructure problems efficiently while helping authorities prioritize and resolve them faster.**
 
