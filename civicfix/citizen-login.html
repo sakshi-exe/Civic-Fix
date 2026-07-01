@@ -12,6 +12,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/dashboard.css">
     <link rel="stylesheet" href="css/style.css">
 </head>
 
@@ -39,10 +40,25 @@
                     <span class="tag">Citizen Access</span>
                     <h1>Sign in to track your civic reports and receive notifications.</h1>
                     <p>Manage every complaint from submission through resolution with a clean, citizen-first dashboard.</p>
+                    <div class="role-highlights">
+                        <div class="hint-card">
+                            <i class="fa-solid fa-bell"></i>
+                            <span>Receive live progress updates</span>
+                        </div>
+                        <div class="hint-card">
+                            <i class="fa-solid fa-file-circle-check"></i>
+                            <span>Follow every submitted report</span>
+                        </div>
+                        <div class="hint-card">
+                            <i class="fa-solid fa-leaf"></i>
+                            <span>See your civic impact</span>
+                        </div>
+                    </div>
                 </div>
-                <div class="glass-panel login-panel" data-aos="fade-left">
-                    <p class="stage-label">Citizen Login</p>
-                    <h2>Welcome back</h2>
+                <div class="glass-panel login-panel citizen-panel" data-aos="fade-left">
+                    <div class="panel-badge"><i class="fa-solid fa-user"></i> Citizen portal</div>
+                    <p class="stage-label">Welcome back</p>
+                    <h2>Access your account</h2>
                     <form id="citizen-login-form" class="login-form" data-role="citizen">
                         <label>
                             <span>Email address</span>
@@ -52,7 +68,7 @@
                             <span>Password</span>
                             <input type="password" id="citizen-password" placeholder="Enter your password" required />
                         </label>
-                        <button class="btn-primary" type="submit">Continue</button>
+                        <button class="btn-primary" type="submit">Open dashboard</button>
                     </form>
                     <p class="form-note">Use any email and password for this demo. You will be redirected to your citizen dashboard.</p>
                 </div>

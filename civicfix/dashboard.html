@@ -13,10 +13,11 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css">
     <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/dashboard.css">
     <link rel="stylesheet" href="css/style.css">
 </head>
 
-<body data-page="admin-dashboard">
+<body class="admin-dashboard" data-page="admin-dashboard">
 
     <header>
         <nav class="navbar container">
@@ -38,6 +39,7 @@
         <section class="container dashboard-shell">
             <aside class="dashboard-sidebar" data-aos="fade-right">
                 <div class="sidebar-brand">
+                    <div class="panel-badge"><i class="fa-solid fa-user-shield"></i> Admin console</div>
                     <h2>CivicFix</h2>
                     <p>City operations and issue intelligence in one modern view.</p>
                 </div>
@@ -64,49 +66,27 @@
 
                 <div class="kpi-grid" data-aos="fade-up" data-aos-delay="100">
                     <article class="kpi-card">
-                        <h3>Total Reports</h3>
-                        <strong>1,248</strong>
+                        <h3>Open Reports</h3>
+                        <strong id="open-count">0</strong>
                     </article>
                     <article class="kpi-card">
-                        <h3>Resolved Today</h3>
-                        <strong>86</strong>
+                        <h3>In Progress</h3>
+                        <strong id="progress-count">0</strong>
                     </article>
                     <article class="kpi-card">
-                        <h3>High Priority</h3>
-                        <strong>42</strong>
+                        <h3>Resolved</h3>
+                        <strong id="resolved-count">0</strong>
                     </article>
                     <article class="kpi-card">
-                        <h3>Municipal Response</h3>
-                        <strong>92%</strong>
+                        <h3>Notifications</h3>
+                        <strong id="notification-count">0</strong>
                     </article>
                 </div>
 
                 <div class="dashboard-grid">
                     <article class="status-card" id="overview" data-aos="fade-up" data-aos-delay="150">
-                        <h3>Issue Status</h3>
-                        <div class="report-list">
-                            <div class="report-item">
-                                <div>
-                                    <strong>Pothole - Sector 7</strong>
-                                    <p>High priority, assigned to road team.</p>
-                                </div>
-                                <span class="status-pill open">Open</span>
-                            </div>
-                            <div class="report-item">
-                                <div>
-                                    <strong>Broken Streetlight</strong>
-                                    <p>Under inspection, 2 hours ago.</p>
-                                </div>
-                                <span class="status-pill resolved">Resolved</span>
-                            </div>
-                            <div class="report-item">
-                                <div>
-                                    <strong>Water leak at Park</strong>
-                                    <p>Medium priority, awaiting approval.</p>
-                                </div>
-                                <span class="status-pill open">Open</span>
-                            </div>
-                        </div>
+                        <h3>Active Issue Queue</h3>
+                        <div id="report-list" class="report-list"></div>
                     </article>
 
                     <article class="map-card" id="map" data-aos="fade-up" data-aos-delay="200">
@@ -152,6 +132,7 @@
     </footer>
 
     <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+    <script src="js/dashboard.js"></script>
     <script src="js/app.js"></script>
 </body>
 
