@@ -10,6 +10,7 @@ const errorHandler = require('./middleware/errorHandler');
 const notFound = require('./middleware/notFound');
 const { successResponse } = require('./utils/response');
 const authRoutes = require('./routes/authRoutes');
+const reportRoutes = require('./routes/reportRoutes');
 
 const app = express();
 
@@ -41,6 +42,7 @@ app.get('/api/v1/health', (req, res) => {
 });
 
 app.use('/api/v1/auth', authRoutes);
+app.use('/api/v1/reports', reportRoutes);
 
 app.use('/api/v1', (req, res) => {
   successResponse(res, 'Welcome to CivicFix API', {
