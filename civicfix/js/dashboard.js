@@ -169,13 +169,49 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (document.querySelector("#citizen-login-form") || document.querySelector("#admin-login-form")) {
         document.querySelectorAll("form.login-form").forEach((form) => {
-            form.addEventListener("submit", (event) => {
+            form.addEventListener("submit", async (event) => {
                 event.preventDefault();
+
                 const role = form.dataset.role;
-                if (role === "citizen") {
-                    window.location.href = "citizen-dashboard.html";
-                } else {
-                    window.location.href = "dashboard.html";
+                const email = form.querySelector('input[type="email"]').value.trim();
+                const password = form.querySelector('input[type="password"]').value;
+                const submitButton = form.querySelector('button[type="submit"]');
+
+                if (submitButton) {
+                    submitButton.disabled = true;
+                    submitButton.textContent = "Signing in...";
+                }
+
+                try {
+                    const response = await fetch("http://127.0.0.1:5008/api/v1/auth/login", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({ email, password, role }),
+                    });
+
+                    const result = await response.json();
+
+                    if (!response.ok) {
+                        throw new Error(result.message || "Login failed");
+                    }
+
+                    window.localStorage.setItem("civicfix-user", JSON.stringify(result.data.user));
+                    window.localStorage.setItem("civicfix-token", result.data.token);
+
+                    if (role === "citizen") {
+                        window.location.href = "citizen-dashboard.html";
+                    } else {
+                        window.location.href = "dashboard.html";
+                    }
+                } catch (error) {
+                    alert(error.message || "Login failed");
+                } finally {
+                    if (submitButton) {
+                        submitButton.disabled = false;
+                        submitButton.textContent = role === "citizen" ? "Open dashboard" : "Enter dashboard";
+                    }
                 }
             });
         });
@@ -186,6 +222,8 @@ document.addEventListener("DOMContentLoaded", () => {
         actionButtons.forEach((button) => {
             button.addEventListener("click", () => {
                 if (button.textContent.includes("Sign Out")) {
+                    window.localStorage.removeItem("civicfix-user");
+                    window.localStorage.removeItem("civicfix-token");
                     window.location.href = "citizen-login.html";
                 }
             });

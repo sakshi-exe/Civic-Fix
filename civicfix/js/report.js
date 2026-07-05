@@ -10,6 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const attachmentText = document.querySelector(".upload-card span");
     const REPORTS_KEY = "civicfix-reports";
     const NOTIFICATIONS_KEY = "civicfix-notifications";
+    const API_BASE_URL = "http://127.0.0.1:5008/api/v1";
 
     let activeIndex = 0;
 
@@ -103,39 +104,67 @@ document.addEventListener("DOMContentLoaded", () => {
         const priority = document.getElementById("issue-priority").value;
         const landmark = document.getElementById("location-landmark").value.trim();
 
-        let attachment = null;
-        if (fileInput.files.length) {
-            attachment = await readImageData(fileInput.files[0]);
+        const token = window.localStorage.getItem("civicfix-token");
+        if (!token) {
+            alert("Please log in as a citizen before submitting a report.");
+            window.location.href = "citizen-login.html";
+            return;
         }
 
-        const report = {
-            id: `CF-${Math.floor(1000 + Math.random() * 9000)}`,
+        const payload = {
             title: title || "Citizen issue",
-            category,
             description,
-            location: location || landmark || "Location not provided",
-            priority,
-            status: "Open",
-            progress: 12,
-            updated: "Just now",
-            created: new Date().toISOString(),
-            image: attachment,
+            category: category === "road" ? "pothole" : category === "sanitation" ? "garbage" : category === "water" ? "water leakage" : category === "streetlight" ? "streetlight" : category === "traffic" ? "traffic" : "other",
+            latitude: 18.5204,
+            longitude: 73.8567,
+            address: location || landmark || "Location not provided",
+            ward: landmark || "Unknown",
+            priority: priority === "high" ? "high" : priority === "medium" ? "medium" : "low",
         };
 
-        const reports = getStorageJson(REPORTS_KEY);
-        reports.unshift(report);
-        saveStorageJson(REPORTS_KEY, reports);
+        try {
+            const response = await fetch(`${API_BASE_URL}/reports`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`,
+                },
+                body: JSON.stringify(payload),
+            });
 
-        const notifications = getStorageJson(NOTIFICATIONS_KEY);
-        notifications.unshift({
-            time: "Just now",
-            message: `Your complaint ${report.id} has been received and is in review.`
-        });
-        saveStorageJson(NOTIFICATIONS_KEY, notifications);
+            const result = await response.json();
+            if (!response.ok) {
+                throw new Error(result.message || "Report submission failed");
+            }
 
-        setTimeout(() => {
+            const report = result.data.report;
+            const reports = getStorageJson(REPORTS_KEY);
+            reports.unshift({
+                id: report._id || report.id,
+                title: report.title,
+                category: report.category,
+                location: report.address || "Location not provided",
+                priority: report.priority,
+                status: report.status || "pending",
+                progress: 12,
+                updated: "Just now",
+                image: null,
+            });
+            saveStorageJson(REPORTS_KEY, reports);
+
+            const notifications = getStorageJson(NOTIFICATIONS_KEY);
+            notifications.unshift({
+                time: "Just now",
+                message: `Your complaint ${report.title} has been received and is in review.`
+            });
+            saveStorageJson(NOTIFICATIONS_KEY, notifications);
+
             window.location.href = "citizen-dashboard.html";
-        }, 800);
+        } catch (error) {
+            alert(error.message || "Report submission failed");
+            nextButton.textContent = "Submit Report";
+            nextButton.disabled = false;
+        }
     });
 
     document.getElementById("issue-title").addEventListener("input", generatePreview);

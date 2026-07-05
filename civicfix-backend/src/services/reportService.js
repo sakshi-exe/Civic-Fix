@@ -1,15 +1,28 @@
 const Report = require('../models/Report');
+const aiService = require('./aiService');
+const notificationService = require('./notificationService');
 
 class ReportService {
   async createReport(data) {
+    const aiSummary = await aiService.generateSummary(data);
+    const aiSeverity = await aiService.generateSeverity(data);
+
     const report = await Report.create({
       ...data,
+      aiSummary,
+      aiSeverity,
       timeline: [
         {
           status: 'pending',
           message: 'Report submitted successfully',
         },
       ],
+    });
+
+    await notificationService.createNotification({
+      user: data.reportedBy,
+      message: `Your report "${report.title}" was submitted successfully.`,
+      type: 'system',
     });
 
     return report.populate('reportedBy', 'name email role');
@@ -68,7 +81,9 @@ class ReportService {
       throw error;
     }
 
-    if (updates.status && updates.status !== report.status) {
+    const previousStatus = report.status;
+
+    if (updates.status && updates.status !== previousStatus) {
       report.timeline.push({
         status: updates.status,
         message: `${actor?.name || 'System'} updated the status`,
@@ -77,6 +92,14 @@ class ReportService {
 
     Object.assign(report, updates);
     await report.save();
+
+    if (updates.status && updates.status !== previousStatus) {
+      await notificationService.createNotification({
+        user: report.reportedBy,
+        message: `Your report "${report.title}" status was updated to ${updates.status}.`,
+        type: 'status_update',
+      });
+    }
 
     return report.populate('reportedBy', 'name email role').populate('assignedTo', 'name email role');
   }
