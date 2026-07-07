@@ -93,17 +93,19 @@ This project supports **United Nations Sustainable Development Goal 9 (SDG 9)** 
 Civic-Fix/
 
 │
-├── civicfix/
+├── civicfix-frontend/
 │   ├── index.html
 │   ├── report.html
 │   ├── dashboard.html
+│   ├── citizen-login.html
+│   ├── citizen-dashboard.html
+│   ├── admin-login.html
 │   ├── css/
 │   ├── js/
-│   ├── assets/
 │   └── manifest.json
 │
 ├── civicfix-backend/
-│   ├── server.js
+│   ├── src/
 │   └── package.json
 │
 └── README.md
@@ -125,10 +127,25 @@ git clone https://github.com/sakshi-exe/Civic-Fix.git
 cd Civic-Fix
 ```
 
+### Run the Backend
+
+```bash
+cd civicfix-backend
+npm install
+cp .env.example .env
+npm start
+```
+
+The backend runs on:
+
+```text
+http://localhost:5001/api/v1
+```
+
 ### Run the Frontend
 
 ```bash
-cd civicfix
+cd civicfix-frontend
 python3 -m http.server 8000
 ```
 
@@ -137,6 +154,8 @@ Open your browser and visit:
 ```text
 http://localhost:8000
 ```
+
+If you use VS Code Live Server, add its origin to `CORS_ORIGIN` in `civicfix-backend/.env`.
 
 ---
 
@@ -257,5 +276,4 @@ This project is developed for educational purposes, hackathons, and technology d
 
 *Maintained & Refined by **Sakshi Rakhade** | Open for collaborations.*
 </div>
-
 

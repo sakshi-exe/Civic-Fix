@@ -16,7 +16,7 @@ exports.createReport = async (req, res, next) => {
 
 exports.getReports = async (req, res, next) => {
   try {
-    const result = await reportService.getReports(req.query);
+    const result = await reportService.getReports(req.query, req.user);
     return successResponse(res, 'Reports fetched successfully', result);
   } catch (error) {
     next(error);
@@ -25,7 +25,7 @@ exports.getReports = async (req, res, next) => {
 
 exports.getReportById = async (req, res, next) => {
   try {
-    const report = await reportService.getReportById(req.params.id);
+    const report = await reportService.getReportById(req.params.id, req.user);
 
     if (!report) {
       return errorResponse(res, 'Report not found', ['Report does not exist'], 404);

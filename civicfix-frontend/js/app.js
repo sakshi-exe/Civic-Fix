@@ -5,6 +5,11 @@ document.addEventListener("DOMContentLoaded", () => {
     const navLinks = document.querySelector(".nav-links");
     const loader = document.getElementById("loader");
     const header = document.querySelector("header");
+    const page = document.body.dataset.page;
+
+    if (page) {
+        document.body.classList.add(page);
+    }
 
     if (menuBtn && navLinks) {
         menuBtn.addEventListener("click", () => {

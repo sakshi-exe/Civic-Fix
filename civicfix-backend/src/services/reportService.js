@@ -3,6 +3,10 @@ const aiService = require('./aiService');
 const notificationService = require('./notificationService');
 
 class ReportService {
+  getId(value) {
+    return value?._id?.toString() || value?.toString();
+  }
+
   async createReport(data) {
     const aiSummary = await aiService.generateSummary(data);
     const aiSeverity = await aiService.generateSeverity(data);
@@ -28,12 +32,36 @@ class ReportService {
     return report.populate('reportedBy', 'name email role');
   }
 
-  async getReports(query = {}) {
+  buildAccessFilter(actor) {
+    if (!actor || actor.role === 'admin') {
+      return {};
+    }
+
+    if (actor.role === 'municipality') {
+      return { assignedTo: actor._id };
+    }
+
+    return { reportedBy: actor._id };
+  }
+
+  canAccessReport(report, actor) {
+    if (!actor || actor.role === 'admin') {
+      return true;
+    }
+
+    if (actor.role === 'municipality') {
+      return this.getId(report.assignedTo) === actor._id.toString();
+    }
+
+    return this.getId(report.reportedBy) === actor._id.toString();
+  }
+
+  async getReports(query = {}, actor) {
     const page = Number(query.page) || 1;
     const limit = Number(query.limit) || 20;
     const skip = (page - 1) * limit;
 
-    const filter = {};
+    const filter = this.buildAccessFilter(actor);
 
     if (query.category) filter.category = query.category;
     if (query.status) filter.status = query.status;
@@ -69,8 +97,13 @@ class ReportService {
     };
   }
 
-  async getReportById(id) {
-    return Report.findById(id).populate('reportedBy', 'name email role').populate('assignedTo', 'name email role');
+  async getReportById(id, actor) {
+    const report = await Report.findById(id).populate('reportedBy', 'name email role').populate('assignedTo', 'name email role');
+    if (!report || !this.canAccessReport(report, actor)) {
+      return null;
+    }
+
+    return report;
   }
 
   async updateReport(id, updates, actor) {
@@ -79,6 +112,21 @@ class ReportService {
       const error = new Error('Report not found');
       error.statusCode = 404;
       throw error;
+    }
+
+    if (!this.canAccessReport(report, actor)) {
+      const error = new Error('You do not have permission to update this report');
+      error.statusCode = 403;
+      throw error;
+    }
+
+    if (actor.role === 'citizen') {
+      const allowedCitizenFields = ['title', 'description', 'category', 'image', 'latitude', 'longitude', 'address', 'ward', 'priority'];
+      Object.keys(updates).forEach((key) => {
+        if (!allowedCitizenFields.includes(key)) {
+          delete updates[key];
+        }
+      });
     }
 
     const previousStatus = report.status;

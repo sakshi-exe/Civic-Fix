@@ -8,32 +8,22 @@ document.addEventListener("DOMContentLoaded", () => {
     const previewText = document.getElementById("preview-text");
     const fileInput = document.getElementById("issue-media");
     const attachmentText = document.querySelector(".upload-card span");
-    const REPORTS_KEY = "civicfix-reports";
-    const NOTIFICATIONS_KEY = "civicfix-notifications";
-    const API_BASE_URL = "http://127.0.0.1:5008/api/v1";
 
     let activeIndex = 0;
 
-    const getStorageJson = (key) => {
-        const raw = window.localStorage.getItem(key);
-        try {
-            return raw ? JSON.parse(raw) : [];
-        } catch (error) {
-            return [];
+    const authHeaders = (token) => ({
+        Authorization: `Bearer ${token}`,
+    });
+
+    const parseApiResponse = async (response) => {
+        const result = await response.json().catch(() => ({}));
+        if (!response.ok) {
+            const message = result.errors?.[0] || result.message || "Request failed";
+            throw new Error(message);
         }
-    };
 
-    const saveStorageJson = (key, value) => {
-        window.localStorage.setItem(key, JSON.stringify(value));
+        return result.data || {};
     };
-
-    const readImageData = (file) =>
-        new Promise((resolve, reject) => {
-            const reader = new FileReader();
-            reader.onload = () => resolve(reader.result);
-            reader.onerror = reject;
-            reader.readAsDataURL(file);
-        });
 
     const updateStage = () => {
         stages.forEach((stage, index) => {
@@ -73,7 +63,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (fileInput.files.length) {
             attachmentText.textContent = `Attached file: ${fileInput.files[0].name}`;
         } else {
-            attachmentText.textContent = "Upload image or video";
+            attachmentText.textContent = "Upload image";
         }
     };
 
@@ -108,56 +98,64 @@ document.addEventListener("DOMContentLoaded", () => {
         if (!token) {
             alert("Please log in as a citizen before submitting a report.");
             window.location.href = "citizen-login.html";
+            nextButton.textContent = "Submit Report";
+            nextButton.disabled = false;
             return;
         }
 
-        const payload = {
-            title: title || "Citizen issue",
-            description,
-            category: category === "road" ? "pothole" : category === "sanitation" ? "garbage" : category === "water" ? "water leakage" : category === "streetlight" ? "streetlight" : category === "traffic" ? "traffic" : "other",
-            latitude: 18.5204,
-            longitude: 73.8567,
-            address: location || landmark || "Location not provided",
-            ward: landmark || "Unknown",
-            priority: priority === "high" ? "high" : priority === "medium" ? "medium" : "low",
-        };
+        if (!description || description.length < 10) {
+            alert("Please add a description with at least 10 characters.");
+            nextButton.textContent = "Submit Report";
+            nextButton.disabled = false;
+            return;
+        }
+
+        if (!location && !landmark) {
+            alert("Please provide the issue location or nearest landmark.");
+            nextButton.textContent = "Submit Report";
+            nextButton.disabled = false;
+            return;
+        }
 
         try {
-            const response = await fetch(`${API_BASE_URL}/reports`, {
+            let image = "";
+
+            if (fileInput.files.length) {
+                const imageFile = fileInput.files[0];
+                const uploadData = new FormData();
+                uploadData.append("image", imageFile);
+
+                const uploadResponse = await fetch(API.upload, {
+                    method: "POST",
+                    headers: authHeaders(token),
+                    body: uploadData,
+                });
+                const uploadResult = await parseApiResponse(uploadResponse);
+                image = uploadResult.imageUrl || "";
+            }
+
+            const payload = {
+                title: title || "Citizen issue",
+                description,
+                category: category === "road" ? "pothole" : category === "sanitation" ? "garbage" : category === "water" ? "water leakage" : category === "streetlight" ? "streetlight" : category === "traffic" ? "traffic" : "other",
+                latitude: 18.5204,
+                longitude: 73.8567,
+                address: location || landmark || "Location not provided",
+                ward: landmark || "Unknown",
+                priority: priority === "high" ? "high" : priority === "medium" ? "medium" : "low",
+                image,
+            };
+
+            const response = await fetch(API.reports, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
-                    "Authorization": `Bearer ${token}`,
+                    ...authHeaders(token),
                 },
                 body: JSON.stringify(payload),
             });
 
-            const result = await response.json();
-            if (!response.ok) {
-                throw new Error(result.message || "Report submission failed");
-            }
-
-            const report = result.data.report;
-            const reports = getStorageJson(REPORTS_KEY);
-            reports.unshift({
-                id: report._id || report.id,
-                title: report.title,
-                category: report.category,
-                location: report.address || "Location not provided",
-                priority: report.priority,
-                status: report.status || "pending",
-                progress: 12,
-                updated: "Just now",
-                image: null,
-            });
-            saveStorageJson(REPORTS_KEY, reports);
-
-            const notifications = getStorageJson(NOTIFICATIONS_KEY);
-            notifications.unshift({
-                time: "Just now",
-                message: `Your complaint ${report.title} has been received and is in review.`
-            });
-            saveStorageJson(NOTIFICATIONS_KEY, notifications);
+            await parseApiResponse(response);
 
             window.location.href = "citizen-dashboard.html";
         } catch (error) {
@@ -171,12 +169,20 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("issue-category").addEventListener("change", generatePreview);
     document.getElementById("issue-location").addEventListener("input", generatePreview);
     document.getElementById("issue-priority").addEventListener("change", generatePreview);
-    fileInput.addEventListener("change", showAttachmentName);
+    fileInput.addEventListener("change", () => {
+        if (fileInput.files.length && !fileInput.files[0].type.startsWith("image/")) {
+            alert("Please upload an image file.");
+            fileInput.value = "";
+        }
+        showAttachmentName();
+    });
 
     updateStage();
-    AOS.init({
+    if (window.AOS) {
+        AOS.init({
         duration: 800,
         once: true,
         easing: "ease-out-cubic"
-    });
+        });
+    }
 });

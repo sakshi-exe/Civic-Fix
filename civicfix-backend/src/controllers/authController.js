@@ -37,6 +37,15 @@ exports.register = async (req, res, next) => {
 exports.registerAdmin = async (req, res, next) => {
   try {
     const { name, email, password, phone } = req.body;
+    const adminKey = process.env.ADMIN_REGISTRATION_KEY;
+
+    if (process.env.NODE_ENV === 'production' && !adminKey) {
+      return errorResponse(res, 'Admin registration disabled', ['ADMIN_REGISTRATION_KEY must be configured'], 403);
+    }
+
+    if (adminKey && req.headers['x-admin-registration-key'] !== adminKey) {
+      return errorResponse(res, 'Admin registration disabled', ['A valid admin registration key is required'], 403);
+    }
 
     const existingUser = await User.findOne({ email });
     if (existingUser) {
