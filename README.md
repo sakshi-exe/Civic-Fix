@@ -272,7 +272,7 @@ This project is developed for educational purposes, hackathons, and technology d
 
 ###  Star this repository if you like the project!
 
-**Let's build smarter, cleaner, and more connected cities with CivicFix. 🚀**
+**Let's build smarter, cleaner, and more connected cities with CivicFix. **
 
 *Maintained & Refined by **Sakshi Rakhade** | Open for collaborations.*
 </div>
