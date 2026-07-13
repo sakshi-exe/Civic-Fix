@@ -18,6 +18,9 @@ exports.register = async (req, res, next) => {
     console.log("Plain Password:", password);
     console.log("Hashed Password:", hashedPassword);
 
+    const testMatch = await bcrypt.compare(password, hashedPassword);
+    console.log("Immediate Compare:", testMatch);
+
     const user = await User.create({
       name,
       email,
