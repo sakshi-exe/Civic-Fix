@@ -85,6 +85,11 @@ exports.login = async (req, res, next) => {
     console.log("\n========== LOGIN REQUEST ==========");
     console.log("Request Body:", req.body);
 
+    const users = await User.find();
+    console.log("========== ALL USERS ==========");
+    console.log(users);
+    console.log("===============================");
+
     const user = await User.findOne({ email }).select("+password");
 
     console.log("User Found:", user);
