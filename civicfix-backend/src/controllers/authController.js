@@ -15,6 +15,9 @@ exports.register = async (req, res, next) => {
 
     const hashedPassword = await bcrypt.hash(password, 12);
 
+    console.log("Plain Password:", password);
+    console.log("Hashed Password:", hashedPassword);
+
     const user = await User.create({
       name,
       email,
@@ -76,31 +79,70 @@ exports.login = async (req, res, next) => {
   try {
     const { email, password, role } = req.body;
 
-    const user = await User.findOne({ email }).select('+password');
+    console.log("\n========== LOGIN REQUEST ==========");
+    console.log("Request Body:", req.body);
+
+    const user = await User.findOne({ email }).select("+password");
+
+    console.log("User Found:", user);
+
     if (!user) {
-      return errorResponse(res, 'Invalid credentials', ['Email or password is incorrect'], 401);
+      console.log("❌ User not found");
+      return errorResponse(
+        res,
+        "Invalid credentials",
+        ["Email or password is incorrect"],
+        401
+      );
     }
 
+    console.log("Entered Password:", password);
+    console.log("Stored Password:", user.password);
+
     const isMatch = await bcrypt.compare(password, user.password);
+
+    console.log("Password Match:", isMatch);
+
     if (!isMatch) {
-      return errorResponse(res, 'Invalid credentials', ['Email or password is incorrect'], 401);
+      console.log("❌ Password mismatch");
+      return errorResponse(
+        res,
+        "Invalid credentials",
+        ["Email or password is incorrect"],
+        401
+      );
     }
 
     if (role && !isAllowedRole(user.role, role)) {
-      return errorResponse(res, 'Role mismatch', [getRoleMismatchMessage(role)], 403);
+      console.log("❌ Role mismatch");
+      return errorResponse(
+        res,
+        "Role mismatch",
+        [getRoleMismatchMessage(role)],
+        403
+      );
     }
 
-    const token = signToken({ id: user._id, role: user.role });
+    const token = signToken({
+      id: user._id,
+      role: user.role,
+    });
 
     const safeUser = user.toObject();
     delete safeUser.password;
 
-    return successResponse(res, 'Login successful', { user: safeUser, token });
+    console.log("✅ Login Successful");
+    console.log("===================================\n");
+
+    return successResponse(res, "Login successful", {
+      user: safeUser,
+      token,
+    });
   } catch (error) {
+    console.error("🔥 Login Error:", error);
     next(error);
   }
 };
-
 exports.getMe = async (req, res, next) => {
   try {
     return successResponse(res, 'User profile fetched successfully', { user: req.user });
